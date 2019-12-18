@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffd8d8;
+    color: white;
+}
+
+.container {
+	max-width: 960px;
+	height: 100vh;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#user-search {
+    background-color: #f08a8aad;
+}
+
+
