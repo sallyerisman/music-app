@@ -7,6 +7,7 @@ const croppedUrl = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 const getSearch = function() {
     let userSearch = userInput.value;
     userInput.value = "";
+    userSearch = userSearch.replace(/\s/g, "-").toLowerCase();
     return userSearch;
 };
 
@@ -20,7 +21,7 @@ const createUrl = function() {
 searchForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    console.log(createUrl());
+    // console.log(createUrl());
 
 });
 
