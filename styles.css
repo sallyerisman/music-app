@@ -37,8 +37,8 @@ form#search-form {
     align-items: center;
 }
 
-section#user-search.row {
-    margin: 0;
+.input-field.first-wrap {
+    width: 85%;
 }
 
 #user-input {
