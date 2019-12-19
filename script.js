@@ -1,20 +1,30 @@
 const searchForm = document.querySelector("#search-form");
 const userInput = document.querySelector('#user-input');
+const croppedUrl = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 
-let userSearch;
 
 // Function for getting and storing user input, and then emptying the search field:
 const getSearch = function() {
-    userSearch = userInput.value;
+    let userSearch = userInput.value;
     userInput.value = "";
     return userSearch;
 };
 
+// Function for creating new URL based on the user's search:
+const createUrl = function() {
+    let urlEnding = getSearch();
+    let newUrl = croppedUrl + urlEnding;
+    return newUrl;
+}
+
 searchForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    getSearch();
+    console.log(createUrl());
+
 });
+
+
 
 
 
