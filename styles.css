@@ -11,17 +11,89 @@ body {
 
 .container {
 	max-width: 960px;
-	height: 100vh;
+    height: 100vh;
     margin: 0 auto;
-    padding: 3rem 1.5rem;
+    padding: 3rem;
+}
 
+
+/* Search bar styles*/
+
+form#search-form {
     display: flex;
-	justify-content: center;
-	align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #user-search {
-    background-color: #f08a8aad;
+    background-color: #d9f1e3;
+    padding: 6px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section#user-search.row {
+    margin: 0;
+}
+
+#user-input {
+    background: none;
+    border: none;
+}
+
+button#button {
+    font-size: 30px;
+    color: #00ad5f;
+    background-color: transparent;
+}
+
+button, input[type="color"], input[type="reset"], input[type="button"], input[type="submit"] {
+    border: none;
+    background-color: none;
+}
+
+section.advanced {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.checkbox {
+    padding: 1rem;
+}
+
+.checkbox label:hover {
+    color: #66cc9e;
+}
+
+input[type="checkbox"] {
+    margin-right: 6px;
 }
 
 
+
+
+/* Responsive layout styles */
+
+
+/* Tablet */
+
+@media only screen and (min-width: 768px) {
+
+button#button {
+    padding-right: 1rem;
+}
+
+}
+
+
+/* Desktop */
+
+@media only screen and (min-width: 992px) {
+
+}

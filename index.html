@@ -8,29 +8,51 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="container">
-        <form id="search-form">
+        <form id="search-form" class="row">
             <!-- Search bar -->
-            <div class="form-group mt-5">
-                <input type="text" class="form-control ml-2" id="user-input" placeholder="Search">
-			    <button class="btn btn-lg btn-info btn-block" type="submit">Search</button>
-            </div>
+            <section id="user-search" class="col-sm-9">
+                <div class="input-field first-wrap">
+                  <input id="user-input" type="text" class="form-control"  placeholder="">
+                </div>
+                <div class="input-field second-wrap">
+                  <button id="button" class="fa fa-search" type="submit">              
+                  </button>
+                </div>
+            </section>
+            <!-- Advanced search option -->
+            <section class="advanced col-sm-9">
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">Artist</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">Album</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="">Song</label>
+                </div>
+            </section> 
 
-            <!-- Previous searches -->
-            <!-- <div class="form-group mt-5">
-                <label for="searches">Previous searches</label>
-                <output class="form-control" id="searches"></output>
-            </div>  -->
         </form> <!-- End of game form -->
 
         <!-- Result box -->
         <section id="result-box" class="row row-cols-1 row-cols-md-2 row-cols-lg-3">  
         </section> <!-- End of Result box -->
+
+        <!-- Previous searches -->
+        <!-- <div class="form-group mt-5">
+        <label for="searches">Previous searches</label>
+        <output class="form-control" id="searches"></output>
+        </div>  -->
+
     </div> <!-- End of container -->
 
     <script src="script.js"></script>
