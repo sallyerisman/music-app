@@ -2,18 +2,19 @@ const searchForm = document.querySelector("#search-form");
 const resultBox = document.querySelector("#result-box");
 
 
-// Function for getting and storing user input, and then emptying the search field:
-const getSearch = function() {
-    const userSearch = document.querySelector('#user-input').value;
-    userInput.value = "";
-    userSearch = userSearch.replace(/\s/g, "-").toLowerCase();
-    return userSearch;
-};
 
-// Function for getting request: 
-const getRequest = async () => {
-    const url = createUrl();
-    const request = await fetch(url, {
+// Function for getting and storing user input, and then emptying the search field:
+// const getSearch = function() {
+//     const userInput = document.querySelector('#user-input');
+//     const userSearch = userInput.value;
+//     userInput.value = "";
+//     userSearch = userSearch.replace(/\s/g, "-").toLowerCase();
+//     return userSearch;
+// };
+
+// Function for making request: 
+const makeRequest = async (url) => {
+    const response = await fetch(url, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
@@ -23,54 +24,122 @@ const getRequest = async () => {
 	if (!response.ok) {
 		throw new Error("Response was not OK.");
 	}
-    
     return await response.json();
 };
 
 // Generic search:
-const search = async (query) => {
-	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${query}`);
+const searchAll = async (request) => {
+	return makeRequest(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${request}`);
 };
 
-// Artist search
-const searchArtists = async (query) => {
-	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/artist?q=${query}`);
+// Artist search:
+const searchArtists = async (request) => {
+	return makeRequest(`https://deezerdevs-deezer.p.rapidapi.com/search/artist?q=${request}`);
 };
 
 // Album search:
-const searchAlbums = async (query) => {
-	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/album?q=${query}`);
+const searchAlbums = async (request) => {
+	return makeRequest(`https://deezerdevs-deezer.p.rapidapi.com/search/album?q=${request}`);
 };
 
 // Track search:
-const searchTracks = async (query) => {
-	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/track?q=${query}`);
+const searchTracks = async (request) => {
+	return makeRequest(`https://deezerdevs-deezer.p.rapidapi.com/search/track?q=${request}`);
 };
 
-// Function for rendering result:
-const renderResult = (response) => {
-    response.data.forEach(data => {
-        const card = `
-            <div class="col mb-4">
-                <div class="card bg-light text-dark">
-                    <img src="${data.artist.picture_big}" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">${data.artist.name}</h5>
-                    </div>
-                </div>
-            </div>
-        `;
-        resultBox.innerHTML = card;
-    });
+// Render artist:
+const renderArtist = artist => {
+	resultBox.innerHTML += `
+		<div class="col">
+			<div class="card bg-light text-dark">
+				<img src="${artist.picture_big}" class="card-img-top">
+				<div class="card-body">
+					<h5 class="card-title">${artist.name}</h5>
+					<p class="card-text">${artist.nb_album} albums</p>
+				</div>
+			</div>
+		</div>
+	`;
+};
+
+const renderAlbum = album => {
+	resultBox.innerHTML += `
+		<div class="col">
+			<div class="card bg-light text-dark">
+				<img src="${album.cover_big}" class="card-img-top">
+				<div class="card-body">
+					<h5 class="card-title">${album.title}</h5>
+					<h6 class="card-title">${album.artist.name}</h5>
+					<p class="card-text">${album.nb_tracks} tracks</p>
+				</div>
+			</div>
+		</div>
+	`;
+};
+
+const renderTrack = track => {
+	resultBox.innerHTML += `
+		<div class="col">
+			<div class="card bg-light text-dark">
+				<img src="${track.album.cover_big}" class="card-img-top">
+				<div class="card-body">
+					<h5 class="card-title">${track.title}</h5>
+					<h6 class="card-title">${track.artist.name}</h5>
+					<p class="card-text">${track.album.title}</p>
+					<p class="card-text">${Math.floor(track.duration / 60)} minutes ${track.duration % 60} seconds</p>
+				</div>
+			</div>
+		</div>
+	`;
+};
+
+const manageResults = function(results) {
+	resultBox.innerHTML = "";
+
+	results.data.forEach(function(item) {
+		switch (item.type) {
+			case "artist":
+				renderArtist(item);
+				break;
+			case "album":
+				renderAlbum(item);
+				break;
+			case "track":
+				renderTrack(item);
+				break;
+			default:
+				// show unknown search result type
+				console.warn("Got search result for unknown type!", item);
+				break;
+		}
+	});
+};
+
+// Function for delivering error message:
+const searchError = function(err) {
+	resultBox.innerHTML = `<div class="alert alert-danger">Erroneous search. Reason for error: "${err}"</div>`;
 };
 
 // Event listener:
-searchForm.addEventListener("submit", function(e) {
+searchForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    const userInput = document.querySelector('#request');
+    const userSearch = userInput.value;
+    userInput.value = "";
 
-    getRequest().then(renderResult).catch(err => {
-        alert("Error getting what you searched for. Error was: " + err);
-    });
+	if (this.all.checked) {
+		searchAll(userSearch).then(manageResults).catch(searchError);
+
+	} else if (this.artists.checked) {
+		searchArtists(userSearch).then(manageResults).catch(searchError);
+
+	} else if (this.albums.checked) {
+		searchAlbums(userSearch).then(manageResults).catch(searchError);
+
+	} else if (this.tracks.checked) {
+		searchTracks(userSearch).then(manageResults).catch(searchError);
+	}
 });
 
 

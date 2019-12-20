@@ -5,6 +5,9 @@
 }
 
 body {
+    background-image: url("watercolor-bright.jpg");
+    background-position: center;
+    background-size: cover; 
     background-color: #ffd8d8;
     color: white;
 }
@@ -41,7 +44,7 @@ form#search-form {
     width: 85%;
 }
 
-#user-input {
+#request {
     background: none;
     border: none;
     box-shadow: none;
