@@ -1,28 +1,19 @@
 const searchForm = document.querySelector("#search-form");
-const userInput = document.querySelector('#user-input');
-const croppedUrl = "https://deezerdevs-deezer.p.rapidapi.com/search?q=";
 const resultBox = document.querySelector("#result-box");
 
 
 // Function for getting and storing user input, and then emptying the search field:
 const getSearch = function() {
-    let userSearch = userInput.value;
+    const userSearch = document.querySelector('#user-input').value;
     userInput.value = "";
     userSearch = userSearch.replace(/\s/g, "-").toLowerCase();
     return userSearch;
 };
 
-// Function for creating new URL based on the user's search:
-const createUrl = function() {
-    const urlEnding = getSearch();
-    let newUrl = croppedUrl + urlEnding;
-    return newUrl;
-}
-
 // Function for getting request: 
 const getRequest = async () => {
     const url = createUrl();
-    const response = await fetch(url, {
+    const request = await fetch(url, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
@@ -32,7 +23,28 @@ const getRequest = async () => {
 	if (!response.ok) {
 		throw new Error("Response was not OK.");
 	}
-	return await response.json();
+    
+    return await response.json();
+};
+
+// Generic search:
+const search = async (query) => {
+	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${query}`);
+};
+
+// Artist search
+const searchArtists = async (query) => {
+	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/artist?q=${query}`);
+};
+
+// Album search:
+const searchAlbums = async (query) => {
+	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/album?q=${query}`);
+};
+
+// Track search:
+const searchTracks = async (query) => {
+	return getJSON(`https://deezerdevs-deezer.p.rapidapi.com/search/track?q=${query}`);
 };
 
 // Function for rendering result:

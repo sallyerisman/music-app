@@ -44,6 +44,7 @@ form#search-form {
 #user-input {
     background: none;
     border: none;
+    box-shadow: none;
 }
 
 button#button {
@@ -63,16 +64,8 @@ section.advanced {
     justify-content: space-evenly;
 }
 
-.checkbox {
-    padding: 1rem;
-}
-
-.checkbox label:hover {
-    color: #66cc9e;
-}
-
-input[type="checkbox"] {
-    margin-right: 6px;
+input[type="radio"]:checked {
+    background-color: #00ad5f;
 }
 
 #result-box {
