@@ -75,6 +75,11 @@ input[type="checkbox"] {
     margin-right: 6px;
 }
 
+#result-box {
+    display: flex;
+    justify-content: center;
+}
+
 
 
 
