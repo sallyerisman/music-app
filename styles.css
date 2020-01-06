@@ -72,9 +72,14 @@ input[type="radio"]:checked {
 }
 
 #result-box {
-    display: flex;
+    width: 70vw;
+    display: grid;
     justify-content: center;
+    grid-template-columns: 70vw, 1fr;
+    grid-gap: 10px;
 }
+
+
 
 
 
@@ -86,9 +91,16 @@ input[type="radio"]:checked {
 
 @media only screen and (min-width: 768px) {
 
-button#button {
-    padding-right: 1rem;
-}
+    button#button {
+        padding-right: 1rem;
+    }
+
+    #result-box {
+        width: 60vw;
+        grid-template-columns: repeat(2, 25vw);
+        grid-gap: 20px;
+    }
+    
 
 }
 

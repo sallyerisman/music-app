@@ -50,13 +50,11 @@ const searchTracks = async (request) => {
 // Render artist:
 const renderArtist = artist => {
 	resultBox.innerHTML += `
-		<div class="col">
-			<div class="card bg-light text-dark">
-				<img src="${artist.picture_big}" class="card-img-top">
-				<div class="card-body">
-					<h5 class="card-title">${artist.name}</h5>
-					<p class="card-text">${artist.nb_album} albums</p>
-				</div>
+		<div class="card grid-item bg-light text-dark">
+			<img src="${artist.picture_big}" class="card-img-top">
+			<div class="card-body">
+				<h5 class="card-title">${artist.name}</h5>
+				<p class="card-text">${artist.nb_album} albums</p>
 			</div>
 		</div>
 	`;
@@ -64,14 +62,12 @@ const renderArtist = artist => {
 
 const renderAlbum = album => {
 	resultBox.innerHTML += `
-		<div class="col">
-			<div class="card bg-light text-dark">
-				<img src="${album.cover_big}" class="card-img-top">
-				<div class="card-body">
-					<h5 class="card-title">${album.title}</h5>
-					<h6 class="card-title">${album.artist.name}</h5>
-					<p class="card-text">${album.nb_tracks} tracks</p>
-				</div>
+		<div class="card grid-item bg-light text-dark">
+			<img src="${album.cover_big}" class="card-img-top">
+			<div class="card-body">
+				<h5 class="card-title">${album.title}</h5>
+				<h6 class="card-title">${album.artist.name}</h5>
+				<p class="card-text">${album.nb_tracks} tracks</p>
 			</div>
 		</div>
 	`;
@@ -79,15 +75,13 @@ const renderAlbum = album => {
 
 const renderTrack = track => {
 	resultBox.innerHTML += `
-		<div class="col">
-			<div class="card bg-light text-dark">
-				<img src="${track.album.cover_big}" class="card-img-top">
-				<div class="card-body">
-					<h5 class="card-title">${track.title}</h5>
-					<h6 class="card-title">${track.artist.name}</h5>
-					<p class="card-text">${track.album.title}</p>
-					<p class="card-text">${Math.floor(track.duration / 60)} minutes ${track.duration % 60} seconds</p>
-				</div>
+		<div class="card grid-item bg-light text-dark">
+			<img src="${track.album.cover_big}" class="card-img-top">
+			<div class="card-body">
+				<h5 class="card-title">${track.title}</h5>
+				<h6 class="card-title">${track.artist.name}</h5>
+				<p class="card-text">${track.album.title}</p>
+				<p class="card-text">${Math.floor(track.duration / 60)} minutes ${track.duration % 60} seconds</p>
 			</div>
 		</div>
 	`;
